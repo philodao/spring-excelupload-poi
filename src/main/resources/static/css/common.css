@@ -9,6 +9,12 @@
 .fnt14 { font-size:14px; line-height:18px; }
 .fnt14x { font-size:14px; }
 
+.fntWeight { font-weight:bold; }
+
+.colorWhite { color:#fff; }
+.colorBlack { color:#000; }
+.jcSpaceBetween { justify-content:space-between; }
+
 .phiButton { cursor:pointer; }
 .phiButton.standard { height:48px;  border-radius:8px; padding:12px 8px; border:1px solid transparent; }
 .phiButton.standard .bItem { padding:0px 6px; }

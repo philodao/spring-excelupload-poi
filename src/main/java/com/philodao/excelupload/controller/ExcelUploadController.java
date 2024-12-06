@@ -5,9 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.json.JSONObject;
@@ -45,6 +47,8 @@ public class ExcelUploadController {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
 
+        int rowindex = 0;
+        int columnindex = 0;
         // JSON 응답 객체 생성
         JSONObject jsonResponse = new JSONObject();
 
@@ -52,8 +56,96 @@ public class ExcelUploadController {
 
         Sheet worksheet = getRows(file);
 
-        //행의수
-        System.out.println("success2"+worksheet.getPhysicalNumberOfRows());
+        Sheet sheet = worksheet.getWorkbook().getSheetAt(0);
+
+        //마지막 행
+        int rows = (sheet.getLastRowNum()+1);
+        //마지막 셀
+        int maxCells = 0;
+        for (rowindex = 0; rowindex < rows; rowindex++) { // 세로
+            System.out.println("rows"+rows);
+            Row row = sheet.getRow(rowindex);
+            if(row!=null) {
+                int cells = (row.getLastCellNum());
+                if (cells > maxCells)
+                    maxCells = cells;
+            }
+
+        }
+        jsonResponse.put("maxRow",rows);
+        jsonResponse.put("maxCol",maxCells);
+
+        //병합된 셀 기록
+        String[][] merge = new String[rows][maxCells];
+        for (int i = 0; i < sheet.getNumMergedRegions(); ++i) {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+
+            int mergeRow = range.getFirstRow(); 	//병합 셀의 시작Row
+            int mergeCol = range.getFirstColumn();	//병합 셀의 시작Col
+            int rowLength = range.getLastRow() - range.getFirstRow() + 1; 		//병합 셀의 Row 길이 계산
+            int colLength = range.getLastColumn() - range.getFirstColumn() + 1;	//병합 셀의 Col 길이 계산
+
+            //merge[][] 에 병합된 셀의 정보 기록
+            for (int r = 0; r < rowLength; r++) {
+                for (int c = 0; c < colLength; c++) {
+
+                    if (r == 0 && c == 0) {//병합된 셀의 시작부분은 [Row, Col] 형태로 길이 제정
+                        merge[mergeRow][mergeCol] = rowLength + "," + colLength;
+                    } else { //이외의 부분은 mergeCell로 표시
+                        merge[mergeRow + r][mergeCol + c] = "mergeCell";
+                    }
+
+                }
+            }
+        }
+
+        //셀의 내용 저장
+        String[][] text = new String[rows][maxCells];
+        for (rowindex = 0; rowindex < rows; rowindex++) { // Row
+
+            Row row = sheet.getRow(rowindex);
+            if (row != null) {
+                int cells = row.getLastCellNum();
+                for (columnindex = 0; columnindex <= cells; columnindex++) { // Col
+
+                    Cell cell = row.getCell(columnindex);
+
+                    String value = "";
+                    // 셀이 빈값일경우를 위한 널체크
+                    if (cell == null) {
+                        continue;
+                    } else {
+                        // 타입별로 내용 조회
+                        switch (cell.getCellType()) {
+                            case FORMULA:
+                                value = cell.getCellFormula();
+                                break;
+                            case NUMERIC:
+                                value = cell.getNumericCellValue() + "";
+                                break;
+                            case STRING:
+                                value = cell.getStringCellValue() + "";
+                                break;
+                            case BLANK:
+                                value = cell.getBooleanCellValue() + "";
+                                break;
+                            case ERROR:
+                                value = cell.getErrorCellValue() + "";
+                                break;
+                        }
+                    }
+                    //내용 저장
+                    text[rowindex][columnindex] = value;
+                }
+
+            }
+        }
+
+        jsonResponse.put("merge", merge); 	//병합정보
+        jsonResponse.put("text", text);	//내용정보
+
+        /*
+
 
         for (int i = 0; i < worksheet.getPhysicalNumberOfRows(); i++) {
 
@@ -74,7 +166,9 @@ public class ExcelUploadController {
 
         jsonResponse.put("status", "success");
         jsonResponse.put("datas",dataList);
+        */
 
+        jsonResponse.put("status", "success");
         response.getWriter().write(jsonResponse.toString());
     }
 
