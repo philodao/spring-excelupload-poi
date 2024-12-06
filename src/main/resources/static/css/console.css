@@ -1,2 +1,7 @@
 .phiExcelUpload #secExcelUpload { }
-.phiExcelUpload #secExcelUpload .excelBox { max-height: 560px; height: 560px; border: 1px solid #CACFD7; background-color: #F9FAFB; }
+.phiExcelUpload #secExcelUpload .excelBox { max-height: 560px; height: 560px; border: 1px solid #CACFD7; background-color: #F9FAFB; overflow:scroll; }
+.phiExcelUpload #secExcelUpload .excelBox table { width:100%; border-collapse:collapse; table-layout: fixed; }
+.phiExcelUpload #secExcelUpload .excelBox table tr th { padding:10px 20px; border:1px solid #555; background-color:#ddd; }
+.phiExcelUpload #secExcelUpload .excelBox table tr td { padding:10px 20px; border:1px solid #555; }
+.phiExcelUpload #secExcelUpload .excelBox table tr td.rowNumber { background-color:#ddd; }
+e span { padding-left:5px; font-weight:400; font-size:16px; }
