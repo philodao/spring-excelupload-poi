@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이벤트엑셀업로드</title>
+<!--    <link th:href="@{/css/attendance.css}" rel="stylesheet" />-->
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/common.css}" rel="stylesheet" />
+    <link th:href="@{/css/console.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+</head>
+<body>
+<div class="page phiExcelUpload">
+    <section id="secExcelUpload">
+        <div th:class="container">
+            <div class="" style="margin-bottom:20px;">
+            <form id="excelUploadForm" action="#" method="post" enctype="multipart/form-data" onSubmit="return excelUploadFormCheck(this)">
+                <input type="file" name="excelFile" />
+                <div class="divFlex">
+                    <div class="fnExcelUploadBtn fnt14 wid200px phiButton standard primary solid textCenter" style="margin-right:12px;">파일첨부</div>
+                    <input type="submit" class="fnt14 wid200px phiButton standard primary solid textCenter" value="업로드" />
+
+                </div>
+            </form>
+            </div>
+
+            <div class="excelBox">
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        console.log($("#excelUploadForm")[0]);
+        let formData = new FormData($("#excelUploadForm")[0]);
+        console.log(formData);
+        $(".fnExcelUploadBtn").on("click",function(){
+            $("input[name=excelFile]").click();
+        });
+
+        function excelUploadFormCheck(frm){
+            let fm = frm;
+
+            if(fm.excelFile.value === ""){
+                alert("첨부파일을 선택해주세요");
+            }else{
+                let formData = new FormData($("#excelUploadForm")[0]);
+                console.log(formData);
+
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "uploadExcel",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if(response.status === "success") {
+                            alert("업로드 성공!");
+                            //window.location.href = "boardList"
+                        } else {
+                            alert("오류 발생: " + response.message);
+                            location.reload();
+                        }
+                    },
+                    error: function() {
+                        alert("서버 통신 오류");
+                        location.reload();
+                    }
+                })
+
+
+            }
+
+
+
+            return false;
+        }
+    </script>
+</div>
+</body>
+</html>

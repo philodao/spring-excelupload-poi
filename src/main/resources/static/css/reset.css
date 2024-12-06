@@ -1,0 +1,199 @@
+@charset "utf-8";
+/* *******************************************************
+ * filename : reset.css
+ * description : reset / common / font CSS
+ * date : 2020-06-30
+******************************************************** */
+* {  font-family: 'Pretendard'; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;  }
+
+html {
+    overflow-y:scroll;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+    display:block;
+}
+audio, canvas, video {
+    display:inline-block;
+}
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+audio, canvas, img, video {
+    vertical-align:middle;
+}
+body {
+    line-height:1;
+}
+ul {
+    list-style:none;
+}
+blockquote, q {
+    quotes:none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:"";
+    content:none;
+}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+img, fieldset {
+    border:0;
+}
+
+button, select {
+    text-transform:none;
+}
+button, input {
+    line-height:normal;
+    border:0px;
+}
+textarea {
+    resize:vertical;
+    overflow:auto;
+}
+address, caption, cite, code,
+dfn, em, var {
+    font-style:normal;
+    font-weight:normal;
+}
+label {
+    cursor:pointer;
+}
+/* For Screen Reader */
+legend {
+    display:none;
+    visibility:hidden;
+}
+/* For Screen Reader */
+caption {
+    display:none;
+    visibility:hidden;
+}
+hr {
+    display:block;
+    height:1px;
+    border:0;
+    border-top:1px solid #ccc;
+    margin:1em 0;
+    padding:0;
+}
+a {
+    color:#666;
+    text-decoration:none;
+}
+a:active, a:hover, a:focus {
+    text-decoration:none;
+}
+button{
+    margin:0px;
+    padding:0px;
+    cursor:pointer;
+    border:0px;
+    background:none;
+}
+a:focus, button:focus{
+    outline:none;
+}
+
+/* input 기본 스타일 초기화 */
+input[type="text"],input[type="password"],input[type="file"],
+select,
+textarea{
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+input::-ms-clear,
+select::-ms-expand{ display: none; }
+textarea{resize:none;}
+@media all and (max-width:800px){
+    .ios-os input[type="text"],
+    .ios-os input[type="password"],
+    .ios-os input[type="file"],
+    .ios-os select,
+    .ios-os textarea{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    .ios-os select{
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' style='opacity:0.5'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+        background-size: 8px;
+        background-position: calc(100% - 10px) calc(50% + 3px);
+        background-repeat: no-repeat;
+    }
+}
+
+.fx { max-width:100%; }
+
+.pull-left { float:left; }
+.pull-right { float:right; }
+.row{*zoom:1;}
+.row:after{clear:both; display:block; content:"";}
+.trans200{-webkit-transition:all 0.2s;-moz-transition:all 0.2s;-o-transition:all 0.2s;-ms-transition:all 0.2s;transition:all 0.2s}
+.trans300{-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-o-transition:all 0.3s;-ms-transition:all 0.3s;transition:all 0.3s}
+.trans400{-webkit-transition:all 0.4s;-moz-transition:all 0.4s;-o-transition:all 0.4s;-ms-transition:all 0.4s;transition:all 0.4s}
+.trans500{-webkit-transition:all 0.5s;-moz-transition:all 0.5s;-o-transition:all 0.5s;-ms-transition:all 0.5s;transition:all 0.5s}
+.material-icons{vertical-align:middle;}
+.text-ellipsis{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.table-cell-layout{display:table-cell; width:100%; height:100%; vertical-align:middle;}
+.over-img{overflow:hidden;}
+.over-img img{
+    -webkit-transition:transform 0.3s;
+    -moz-transition:transform 0.3s;
+    -o-transition:transform 0.3s;
+    -ms-transition:transform 0.3s;
+    transition:transform 0.3s
+}
+a:hover .over-img img{
+    -ms-transform: scale(1.1) rotate(0.002deg);
+    -o-transform: scale(1.1) rotate(0.002deg);
+    -moz-transform: scale(1.1) rotate(0.002deg);
+    -webkit-transform: scale(1.1) rotate(0.002deg);
+    transform: scale(1.1) rotate(0.002deg);
+}
+.over-bg{
+    overflow:hidden;
+    -webkit-transition:transform 0.3s;
+    -moz-transition:transform 0.3s;
+    -o-transition:transform 0.3s;
+    -ms-transition:transform 0.3s;
+    transition:transform 0.3s
+}
+a:hover .over-bg{
+    -ms-transform: scale(1.1) rotate(0.002deg);
+    -o-transform: scale(1.1) rotate(0.002deg);
+    -moz-transform: scale(1.1) rotate(0.002deg);
+    -webkit-transform: scale(1.1) rotate(0.002deg);
+    transform: scale(1.1) rotate(0.002deg);
+}
+/* 공통 :: 여백 */
+.margin0{ margin:0 !important; }
+

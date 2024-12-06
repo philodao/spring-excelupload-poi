@@ -1,0 +1,23 @@
+.container { max-width:1280px; margin:0 auto; }
+
+.textCenter { text-align:center; }
+
+.wid200px { width:200px; }
+
+.divFlex { display:flex; }
+
+.fnt14 { font-size:14px; line-height:18px; }
+.fnt14x { font-size:14px; }
+
+.phiButton { cursor:pointer; }
+.phiButton.standard { height:48px;  border-radius:8px; padding:12px 8px; border:1px solid transparent; }
+.phiButton.standard .bItem { padding:0px 6px; }
+.phiButton.standard.primary.border { border:1px solid #3366FF; }
+.phiButton.standard.primary.solid { background-color:#3366FF; color:#fff; }
+.phiButton.standard.primary.outline { background-color:#fff; color:#3366FF; }
+.phiButton.standard.primary.solid:hover { background-color:#1D4ED8; }
+.phiButton.standard.primary.outline:hover { background-color:#EFF5FF; }
+.phiButton.standard.primary.solid:disabled { background-color:#E5E7EB !important;  }
+.phiButton.standard.primary.solid.border:disabled { border:1px solid #E5E7EB !important; }
+.phiButton.standard.primary.outline:disabled { background-color:#fff !important; color:#E5E7EB;}
+.phiButton.standard.primary.outline.border:disabled { border:1px solid #E5E7EB !important; }
